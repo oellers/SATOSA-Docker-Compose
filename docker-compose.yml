@@ -1,0 +1,39 @@
+version: '3.3'
+
+networks:
+  default: {}
+  
+services:
+  satosa:
+    container_name: satosa-proxy-8.2.0
+    image: satosa:8.2.0
+    env_file: .env
+    restart: always
+    user: 1001:1001
+    ports:
+      - 10000:8080
+    volumes:
+      #
+      # Satosa configuration
+      #
+      - ./etc:/etc/satosa
+      #
+      # Custom modules
+      #
+      - ./mod/micro_services/processors/prefix_processor.py:/usr/local/lib/python3.11/site-packages/satosa/micro_services/processors/prefix_processor.py
+      #
+      # Certs for saml2 idp and metadata
+      #
+      - /etc/pki/tls/private/idp-key.pem:/etc/satosa/frontend.key
+      - /etc/pki/tls/certs/idp-pub.pem:/etc/satosa/frontend.crt
+      - /etc/pki/tls/certs/dfn-aai-mdq.pem:/etc/satosa/certs/dfn-aai-mdq.pem
+      #
+      # Load custom satosa src (example)
+      #
+      #- ./src/frontends/saml2.py:/usr/local/lib/python3.11/site-packages/satosa/frontends/saml2.py
+      #
+      # DEBUG
+      #
+      #- ./certs/test-crt.pem:/etc/satosa/frontend.crt
+      #- ./certs/test-key.pem:/etc/satosa/frontend.key
+      

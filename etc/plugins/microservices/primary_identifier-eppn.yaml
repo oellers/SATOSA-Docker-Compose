@@ -1,0 +1,64 @@
+module: satosa.micro_services.primary_identifier.PrimaryIdentifier
+name: PrimaryIdentifierEppn
+config:
+    # The ordered identifier candidates are searched in order
+    # to find a candidate primary identifier. The search ends
+    # when the first candidate is found. The identifier or attribute
+    # names are the internal SATOSA names for the attributes as
+    # defined in internal_attributes.yaml. The configuration below
+    # would search in order for subjectID, eduPersonUniqueID
+    # eduPersonPrincipalName combined with a SAML2 Persistent NameID, 
+    # eduPersonPrincipalName combined with eduPersonTargetedId,
+    # eduPersonPrincipalName, SAML 2 Persistent NameID, and finally eduPersonTargetedId
+    # The microservice may be configured per entityID
+    # The configuration key is the entityID of the requesting SP,
+    # or the authenticating IdP. An SP configuration overrides an IdP
+    # configuration when there is a conflict.
+
+    # NOTES
+    # The OIDC sub is only locally unique.
+    # Also it is unknown whether we receive an oidc public or pairwise sub claim
+    # To translate the sub to suitable SAML2 identifier attributes, we combine the sub with the entityid
+    # Later we hash the combined value in an attribute processor to generate globally unique ids
+    # We later proxy these ids to sps with a scope added in the attribute processor later on
+    #
+    # Technically the list of attributes does not need to be the way listed below.
+    # Reason: the oidc sub is only internally mapped to saml2 edupersontargeted, so we do not expect it in any other attribute
+    ordered_identifier_candidates:
+      #- attribute_names: [subjectid]
+      #  add_scope: issuer_entityid
+      #- attribute_names: [epuid]
+      #  add_scope: issuer_entityid
+      #- attribute_names: [pairwiseid]
+      #  add_scope: issuer_entityid
+      #- attribute_names: [name_id]
+      #  name_id_format: urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
+      #  add_scope: issuer_entityid
+      # The lines below addes the IdP entityID to the value for the SAML2 
+      # Persistent NameID to ensure the value is fully scoped.
+      - attribute_names: [edupersontargetedid]
+        add_scope: issuer_entityid
+      # The line below combines, if found, eduPersonPrincipalName and SAML 2
+      # persistent NameID to create a primary identifier.
+      # ePPN is re-assignable, therefore only last resort
+      #- attribute_names: [eppn, name_id]
+      #  name_id_format: urn:oasis:names:tc:SAML:2.0:nameid-format:persistent
+      #  add_scope: issuer_entityid
+      #- attribute_names: [eppn]
+      #  add_scope: issuer_entityid
+    # The internal SATOSA attribute into which to place the primary
+    # identifier value once found from the above configured ordered
+    # candidates.
+    primary_identifier: eppn # This is one of our primary target attributes for the generated IDs
+    #
+    # Whether or not to clear the input attributes after setting the
+    # primary identifier value.
+    # WARNING: Not only the attributes listed above are considered "input attributes"
+    clear_input_attributes: no
+    # Whether to replace subject_id with the constructed primary identifier
+    # WARNING: The default NameID is not globally unique as it takes a local sub, so we set this to yes to replace it with the scoped value
+    # Otherwise set to no and do not deliver SAML2 Name_ID or persistent-id / targeted-id at all
+    replace_subject_id: yes
+    # If defined redirect to this page if no primary identifier can
+    # be found.
+    on_error: !ENV MISSING_INDENTIFIER_WEBPAGE

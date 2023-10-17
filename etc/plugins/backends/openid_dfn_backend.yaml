@@ -1,0 +1,55 @@
+module: satosa.backends.openid_connect.OpenIDConnectBackend
+name: !ENV BACKEND_OIDC_DFN_NAME
+config:
+  provider_metadata:
+    issuer: !ENV BACKEND_OIDC_DFN_ISSUER_ID
+  client:
+    verify_ssl: yes
+    auth_req_params:
+      response_type: code
+      scope: [openid, profile, email]
+    client_metadata:
+      #application_name: !ENV BACKEND_OIDC_DFN_APP_NAME
+      #application_type: !ENV BACKEND_OIDC_DFN_APP_TYPE
+      #client_id: !ENV BACKEND_OIDC_DFN_CLIENT_ID
+      #client_secret: !ENV BACKEND_OIDC_DFN_CLIENT_SECRET
+      contacts: !ENV CONTACT_TECHNICAL_MAIL
+      redirect_uris: [<base_url>/<name>]
+      #subject_type: public
+    userinfo_request_method: GET
+  attribute_map_dir: attributemaps
+  entity_info:
+    contact_person:
+      - contact_type: "technical"
+        email_address: !ENV CONTACT_TECHNICAL_MAIL
+        given_name: !ENV CONTACT_TECHNICAL_GIVENNAME
+        sur_name: !ENV CONTACT_TECHNICAL_SURNAME
+      - contact_type: "support"
+        email_address: !ENV CONTACT_SUPPORT_MAIL
+        given_name: !ENV CONTACT_SUPPORT_GIVENNAME
+        sur_name: !ENV CONTACT_SUPPORT_SURNAME
+      - contact_type: "administrative"
+        email_address: !ENV CONTACT_ADMINISTRATIVE_MAIL
+        given_name: !ENV CONTACT_ADMINISTRATIVE_GIVENNAME
+        sur_name: !ENV CONTACT_ADMINISTRATIVE_SURNAME
+      - contact_type: "other"
+        email_address: !ENV CONTACT_OTHER_MAIL 
+        given_name: !ENV CONTACT_OTHER_GIVENNAME 
+        sur_name: !ENV CONTACT_OTHER_SURNAME
+    organization:
+      display_name:
+      - [!ENV BACKEND_OIDC_ORGANIZATION_EN_DISPLAYNAME, "en"]
+      - [!ENV BACKEND_OIDC_ORGANIZATION_DE_DISPLAYNAME, "de"]
+      name:
+      - [!ENV BACKEND_OIDC_ORGANIZATION_EN_NAME, "en"]
+      - [!ENV BACKEND_OIDC_ORGANIZATION_DE_NAME, "de"]
+      url:
+      - [!ENV BACKEND_OIDC_ORGANIZATION_EN_URL, "en"]
+      - [!ENV BACKEND_OIDC_ORGANIZATION_DE_URL, "de"]
+    ui_info:
+      description:
+      - [!ENV BACKEND_OIDC_EN_DESCRIPTION, "en"]
+      - [!ENV BACKEND_OIDC_DE_DESCRIPTION, "de"]
+      display_name:
+      - [!ENV BACKEND_OIDC_EN_DISPLAYNAME, "en"]
+      - [!ENV BACKEND_OIDC_DE_DISPLAYNAME, "de"]

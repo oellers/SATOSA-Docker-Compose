@@ -1,0 +1,29 @@
+module: satosa.micro_services.hasher.Hasher
+name: NameIdHasher
+config:
+  # default settings that apply to every requester
+  "":
+    # It is not recommended to change the salt after first setup
+    # This affects the persistent-id / saml2 name id generation 
+    # (though we do advice SPs NOT to use persistent-id to re-identify users as these are deprecated attributes)
+    salt: randomSalt # the salt (do not change after first setup)
+    # Note: max sha256 should be used as id generation for eduPersonUniqueId (max. 64 chars for unique part allowed in specs)
+    # the hash algorithm to use (default: sha512)
+    alg: sha224 
+    # whether subject_id should be hashed (default: yes)
+    subject_id: yes 
+    
+    # a list of attributes to hash (default: [])
+    # WARNING: the hasher produces different outputs than the hashprocessor with the same inputs (salt, value, alg)
+    #attributes:
+    # - eppn
+  
+  # SP-specific settings to generate targeted-ids using different salts
+  # Only SPs needs to be added, which should receive a targeted id
+
+  "https://testsp3.aai.dfn.de/shibboleth":
+    salt: differentSalt # do not change once set
+    
+  "https://testsp2.aai.dfn.de/shibboleth":
+    salt: differentSalt # do not change once set
+    

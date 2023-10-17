@@ -1,0 +1,14 @@
+module: satosa.micro_services.attribute_generation.AddSyntheticAttributes
+name: GenerateSubjectID
+config:
+    synthetic_attributes:
+        #requester1:
+        #    target_provider1:
+        #        eduPersonAffiliation: member;employee
+        default:
+            default:
+                # the generated eppn qualifies for syntax/semantics of the SAML2 subject-id
+                # (e. g. globally unique, persistent, non-targeted, ...)
+                # we therefore distribute eppn = subject-id as SAML2 identifiers for SPs
+                subjectid: '{{eppn}}'
+

@@ -1,0 +1,157 @@
+attributes:
+  affiliation:
+    openid:
+      - affiliation
+    saml:
+      - eduPersonScopedAffiliation
+      - eduPersonAffiliation
+  assurance:
+    openid:
+      - assurance
+    saml:
+      - eduPersonAssurance
+  address:
+    openid:
+      - address.street_address
+    orcid:
+      - address
+    saml:
+      - postaladdress
+  o:
+    openid:
+      - organizationname # (non-standard oidc)
+      - heimatorganisation  # (vidis.schule, V. 54)
+    saml:
+      - o
+  ou:
+    openid:
+      - schulkennung  # (vidis.schule, V. 54)
+    saml:
+      - ou
+  county:
+    openid:
+      - bundesland # (vidis.schule, V. 54)
+  displayname:
+    openid:
+      - nickname
+      - akronym # (vidis.schule, V. 54)
+    orcid:
+      - displayname
+    github:
+      - login
+    saml:
+      - displayName
+  domain: 
+    openid:
+      - domain
+  pairwiseid:
+    saml:
+      - pairwise-id
+  subjectid:
+    # be aware to not add an oidc profile or attributes
+    # this might conflict the id generation implementation of the proxy
+    saml:
+      - subject-id
+  epuid:
+    saml:
+      - eduPersonUniqueId
+  edupersontargetedid:
+    facebook:
+      - id
+    linkedin:
+      - id
+    orcid:
+      - edupersontargetedid
+    github:
+      - id
+    openid:
+      - sub
+    saml: 
+      - eduPersonTargetedID
+  entitlement:
+    openid:
+      - rolle # (vidis.schule, V. 54)
+      - entitlement
+    saml:
+      - eduPersonEntitlement
+  eppn:  
+    # be aware to not add oidc profile or attributes
+    # this might conflict the id generation implementation of the proxy
+    saml:
+      - eduPersonPrincipalName
+  givenname:
+    facebook:
+      - first_name
+    linkedin:
+      - email-address
+    orcid:
+      - givenname
+    openid:
+      - vorname # (vidis.schule, V. 54)
+      - given_name
+    saml:
+      - givenName
+  mail:
+    facebook:
+      - email
+    linkedin:
+      - email-address
+    orcid:
+      - mail
+    github:
+      - email
+    openid:
+      - email
+    saml:
+      - mail    
+  gid:
+    openid:
+      - gid
+  gids:
+    openid:
+      - gids
+  groups:
+    openid:
+      - groups    
+  name:
+    facebook:
+      - name
+    orcid:
+      - name
+    github:
+      - name
+    openid:
+      - name
+    saml:
+      - displayName
+  surname:
+    facebook:
+      - last_name
+    linkedin:
+      - lastName
+    orcid:
+      - surname
+    openid:
+      - nachname  # (vidis.schule, V. 54)
+      - family_name
+    saml:
+      - sn
+      - surname
+  orcid:
+    openid:
+      - odcid
+    saml:
+      - eduPersonOrcid
+  systems:
+    openid:
+      - systems
+  uid:
+    openid:
+      - uid
+    saml:
+      - uid
+  userstatus:
+    openid:
+      - userstatus
+    saml:
+      - schacUserStatus

@@ -1,0 +1,10 @@
+module: satosa.micro_services.attribute_processor.AttributeProcessor
+name: EntitlementProcessor
+config:
+  process:
+  - attribute: entitlement
+    processors:
+    # (custom processor, if prefix = 'issuer_entityid', it uses issuer prefix: https://issuer-hostname/)
+    - name: PrefixProcessor
+      module: satosa.micro_services.processors.prefix_processor
+      prefix: issuer_entityid

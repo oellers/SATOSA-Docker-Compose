@@ -1,0 +1,20 @@
+module: satosa.micro_services.attribute_processor.AttributeProcessor
+name: EppnProcessor
+config:
+  process:
+  - attribute: eppn
+    processors:
+    # do not remove the first scope processor
+    # this a needed workaround for a satosa processor bug
+    - name: ScopeProcessor
+      module: satosa.micro_services.processors.scope_processor
+      scope: oidc # do not change this value once set
+    - name: HashProcessor
+      module: satosa.micro_services.processors.hash_processor
+      # do not change hash alg once set, this affects the id generation
+      hash_alg: sha224
+      # do not change the salt once set, this affects the id generation
+      salt: exampleSalt
+    - name: ScopeProcessor
+      module: satosa.micro_services.processors.scope_processor
+      scope: !ENV FRONTEND_SAML2_IDP_SCOPE
