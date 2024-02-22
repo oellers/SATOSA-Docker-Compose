@@ -5,8 +5,8 @@ networks:
   
 services:
   satosa:
-    container_name: satosa-proxy-8.2.0
-    image: satosa:8.2.0
+    container_name: satosa-proxy-8.4.0
+    image: satosa:8.4.0
     env_file: .env
     restart: always
     user: 1001:1001
@@ -20,7 +20,7 @@ services:
       #
       # Custom modules
       #
-      - ./mod/micro_services/processors/prefix_processor.py:/usr/local/lib/python3.11/site-packages/satosa/micro_services/processors/prefix_processor.py
+      - ./mod/micro_services/processors/prefix_processor.py:/usr/local/lib/python3.12/site-packages/satosa/micro_services/processors/prefix_processor.py
       #
       # Certs for saml2 idp and metadata
       #
@@ -30,7 +30,7 @@ services:
       #
       # Load custom satosa src (example)
       #
-      #- ./src/frontends/saml2.py:/usr/local/lib/python3.11/site-packages/satosa/frontends/saml2.py
+      #- ./src/frontends/saml2.py:/usr/local/lib/python3.12/site-packages/satosa/frontends/saml2.py
       #
       # DEBUG
       #
