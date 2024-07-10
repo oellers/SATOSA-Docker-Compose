@@ -2,6 +2,7 @@ module: satosa.micro_services.attribute_modifications.AddStaticAttributes
 name: AddDebuggingAttributes
 config:
     static_attributes:
+        schacHomeOrganization: !ENV FRONTEND_SAML2_IDP_SCOPE
         #assurance: https://refeds.org/assurance
         #surname: TestSurname
         #givenname: TestGivenname
