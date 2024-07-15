@@ -40,6 +40,7 @@ config:
         # E.g. DFN-AAI SPs - Single Entities (or federated metadata)
         - url: https://mdq.aai.dfn.de/entities/https%3A%2F%2Ftestsp2.aai.dfn.de
           cert: certs/dfn-aai-mdq.pem
+          node_name: urn:oasis:names:tc:SAML:2.0:metadata:EntityDescriptor
     entityid: <base_url>/<name>/proxy.xml
     attribute_map_dir: attributemaps
     accepted_time_diff: 60
