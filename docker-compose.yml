@@ -3,7 +3,7 @@ networks:
   
 services:
   satosa:
-    container_name: satosa-proxy-8.4.0
+    container_name: satosa-proxy
     image: satosa:8.4.0
     env_file: .env
     restart: always
@@ -35,3 +35,10 @@ services:
       #- ./certs/test-crt.pem:/etc/satosa/frontend.crt
       #- ./certs/test-key.pem:/etc/satosa/frontend.key
       
+# Restart service to refresh metadata
+  restarter:
+    container_name: satosa-restart
+    image: docker:cli
+    volumes: ["/var/run/docker.sock:/var/run/docker.sock"]
+    command: ["/bin/sh", "-c", "while true; do sleep 64800; docker restart satosa-proxy; done"]
+    restart: unless-stopped
