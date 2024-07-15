@@ -6,7 +6,7 @@ config:
       urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST: sso/post
       urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect: sso/redirect
   entityid_endpoint: true
-  enable_metadata_reload: 'yes'
+  enable_metadata_reload: 'no'
   custom_attribute_release:
         default:
             default:
