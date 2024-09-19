@@ -34,7 +34,6 @@ attributes:
   displayname:
     openid:
       - nickname
-      - akronym # (vidis.schule, V. 54)
     orcid:
       - displayname
     github:

@@ -15,6 +15,7 @@ FRONTEND_MODULES:
 MICRO_SERVICES:
   # static attributes 
   - plugins/microservices/static_attributes.yaml
+  - plugins/microservices/attribute_generation-displayName.yaml
   - plugins/microservices/attribute_generation-uid.yaml
   # The unaltered oidc sub is not globally unique, so we combine it with the issuer entity id
   - plugins/microservices/primary_identifier-eppn.yaml
